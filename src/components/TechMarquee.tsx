@@ -69,7 +69,7 @@ export default function TechMarquee() {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: false, margin: "-80px" }}
           transition={{ duration: 0.6 }}
           className="flex items-center gap-4"
         >

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import SectionHeading from "./SectionHeading";
@@ -72,6 +72,7 @@ function RepoTree({ repo }: { repo: Repo }) {
 export default function Projects({ repos, profile }: Props) {
   const [lang, setLang] = useState<string>("All");
   const [sort, setSort] = useState<Sort>("recent");
+  const [archiveOpen, setArchiveOpen] = useState(false);
 
   const languages = useMemo(() => {
     const counts = new Map<string, number>();
@@ -119,7 +120,7 @@ export default function Projects({ repos, profile }: Props) {
 
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
-          index="02"
+          index="03"
           kicker="Work"
           title={
             <>
@@ -133,7 +134,7 @@ export default function Projects({ repos, profile }: Props) {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
+          viewport={{ once: false, margin: "-60px" }}
           transition={{ duration: 0.6 }}
           className="mx-auto mb-10 grid max-w-4xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] md:grid-cols-4"
         >
@@ -161,7 +162,7 @@ export default function Projects({ repos, profile }: Props) {
           rel="noreferrer noopener"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
+          viewport={{ once: false, margin: "-60px" }}
           transition={{ duration: 0.6 }}
           className="group mx-auto mb-12 flex w-fit items-center gap-4 rounded-full border border-white/10 bg-white/[0.04] p-2 pr-6 backdrop-blur-md transition-colors duration-300 hover:border-violet-400/40 hover:bg-violet-500/10"
         >
@@ -212,7 +213,7 @@ export default function Projects({ repos, profile }: Props) {
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
+              viewport={{ once: false, margin: "-60px" }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="mb-10 flex flex-col items-start justify-between gap-5 md:flex-row md:items-center"
             >
@@ -417,47 +418,40 @@ export default function Projects({ repos, profile }: Props) {
                       </div>
 
                       <div className="overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02]">
-                        {archive.map((r, i) => (
-                          <a
-                            key={r.id}
-                            href={r.html_url}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                            className="group relative flex items-center gap-x-4 border-b border-white/5 px-3 py-3.5 transition-colors duration-200 last:border-b-0 hover:bg-white/[0.03] sm:px-5"
-                          >
-                            <span className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-violet-400 to-orange-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
-                            <span className="w-8 shrink-0 font-mono text-[11px] tracking-[0.2em] text-zinc-600">
-                              {String(i + featured.length + 1).padStart(2, "0")}
-                            </span>
-                            <span className="min-w-0 flex-none font-display text-sm font-bold text-zinc-200 transition-colors duration-200 group-hover:text-violet-200 sm:text-base">
-                              {r.name}
-                            </span>
-                            <span className="hidden min-w-0 flex-1 truncate text-sm text-zinc-500 md:block">
-                              {r.description ||
-                                `Public ${r.language?.toLowerCase() ?? "source"} repository`}
-                            </span>
-                            <span className="ml-auto hidden shrink-0 items-center gap-2 font-mono text-[11px] text-zinc-400 sm:flex sm:min-w-[110px]">
-                              <span
-                                className="h-2 w-2 rounded-full"
-                                style={{ background: langColor(r.language) }}
-                              />
-                              {r.language ?? "—"}
-                            </span>
-                            <span className="flex shrink-0 items-center gap-1 font-mono text-[11px] text-zinc-500">
-                              {r.stargazers_count}
-                              <svg viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3" aria-hidden>
-                                <path d="M12 2.5l2.45 5.1 5.55.66-4.1 3.88 1.05 5.5L12 14.77l-4.95 2.87 1.05-5.5-4.1-3.88 5.55-.66L12 2.5z" />
-                              </svg>
-                            </span>
-                            <span className="hidden shrink-0 font-mono text-[11px] text-zinc-600 md:block">
-                              {formatDate(r.pushed_at)}
-                            </span>
-                            <span className="shrink-0 text-zinc-600 opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100 group-hover:text-white">
-                              ↗
-                            </span>
-                          </a>
+                        {archive.slice(0, 5).map((r, i) => (
+                          <ArchiveRow key={r.id} r={r} i={i} featuredLength={featured.length} />
                         ))}
+                        <AnimatePresence initial={false}>
+                          {archiveOpen &&
+                            archive.slice(5).map((r, i) => (
+                              <motion.div
+                                key={r.id}
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.3, delay: archiveOpen ? i * 0.03 : 0 }}
+                                className="overflow-hidden"
+                              >
+                                <ArchiveRow r={r} i={i + 5} featuredLength={featured.length} />
+                              </motion.div>
+                            ))}
+                        </AnimatePresence>
                       </div>
+
+                      {archive.length > 5 && (
+                        <button
+                          onClick={() => setArchiveOpen((v) => !v)}
+                          className="group mx-auto mt-6 flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-400 transition-all duration-300 hover:border-violet-400/40 hover:bg-violet-500/10 hover:text-white"
+                        >
+                          {archiveOpen ? "Fold archive" : `See more · ${archive.length - 5}`}
+                          <motion.span
+                            animate={{ rotate: archiveOpen ? 180 : 0 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            ↓
+                          </motion.span>
+                        </button>
+                      )}
                     </div>
                   )}
                 </>
@@ -468,7 +462,7 @@ export default function Projects({ repos, profile }: Props) {
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
+              viewport={{ once: false, margin: "-60px" }}
               transition={{ duration: 0.6 }}
               className="mt-14 text-center"
             >
@@ -488,6 +482,56 @@ export default function Projects({ repos, profile }: Props) {
         )}
       </div>
     </section>
+  );
+}
+
+function ArchiveRow({
+  r,
+  i,
+  featuredLength,
+}: {
+  r: Repo;
+  i: number;
+  featuredLength: number;
+}) {
+  return (
+    <a
+      href={r.html_url}
+      target="_blank"
+      rel="noreferrer noopener"
+      className="group relative flex items-center gap-x-4 border-b border-white/5 px-3 py-3.5 transition-colors duration-200 last:border-b-0 hover:bg-white/[0.03] sm:px-5"
+    >
+      <span className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-violet-400 to-orange-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+      <span className="w-8 shrink-0 font-mono text-[11px] tracking-[0.2em] text-zinc-600">
+        {String(i + featuredLength + 1).padStart(2, "0")}
+      </span>
+      <span className="min-w-0 flex-none font-display text-sm font-bold text-zinc-200 transition-colors duration-200 group-hover:text-violet-200 sm:text-base">
+        {r.name}
+      </span>
+      <span className="hidden min-w-0 flex-1 truncate text-sm text-zinc-500 md:block">
+        {r.description ||
+          `Public ${r.language?.toLowerCase() ?? "source"} repository`}
+      </span>
+      <span className="ml-auto hidden shrink-0 items-center gap-2 font-mono text-[11px] text-zinc-400 sm:flex sm:min-w-[110px]">
+        <span
+          className="h-2 w-2 rounded-full"
+          style={{ background: langColor(r.language) }}
+        />
+        {r.language ?? "—"}
+      </span>
+      <span className="flex shrink-0 items-center gap-1 font-mono text-[11px] text-zinc-500">
+        {r.stargazers_count}
+        <svg viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3" aria-hidden>
+          <path d="M12 2.5l2.45 5.1 5.55.66-4.1 3.88 1.05 5.5L12 14.77l-4.95 2.87 1.05-5.5-4.1-3.88 5.55-.66L12 2.5z" />
+        </svg>
+      </span>
+      <span className="hidden shrink-0 font-mono text-[11px] text-zinc-600 md:block">
+        {formatDate(r.pushed_at)}
+      </span>
+      <span className="shrink-0 text-zinc-600 opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100 group-hover:text-white">
+        ↗
+      </span>
+    </a>
   );
 }
 

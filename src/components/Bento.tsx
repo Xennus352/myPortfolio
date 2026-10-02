@@ -144,7 +144,7 @@ export default function Bento() {
     <section id="craft" className="relative py-24 md:py-36">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
-          index="01"
+          index="02"
           kicker="Craft"
           title={
             <>
@@ -161,7 +161,7 @@ export default function Bento() {
             onMouseMove={onMove}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            viewport={{ once: false, margin: "-60px" }}
             transition={{ duration: 0.6 }}
             className="group relative overflow-hidden rounded-3xl card-surface p-8 md:col-span-4 md:row-span-2 md:p-10"
             style={{ ["--mx" as string]: "50%", ["--my" as string]: "50%" }}
@@ -212,7 +212,7 @@ export default function Bento() {
               key={c.title}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
+              viewport={{ once: false, margin: "-60px" }}
               transition={{ duration: 0.55, delay: i * 0.05 }}
               className="group relative overflow-hidden rounded-3xl card-surface p-6 hover:border-white/20 md:col-span-2"
             >

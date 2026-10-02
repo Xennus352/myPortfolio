@@ -4,10 +4,11 @@ import { AnimatePresence, motion, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const LINKS = [
+  { label: "About", href: "#about" },
   { label: "Stack", href: "#stack" },
   { label: "Craft", href: "#craft" },
   { label: "Work", href: "#work" },
-  { label: "3D Studio", href: "#studio" },
+  { label: "Activity", href: "#activity" },
   { label: "Contact", href: "#contact" },
 ];
 

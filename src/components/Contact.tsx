@@ -92,7 +92,7 @@ export default function Contact() {
 
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
-          index="04"
+          index="05"
           kicker="Contact"
           title={
             <>
@@ -107,7 +107,7 @@ export default function Contact() {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            viewport={{ once: false, margin: "-60px" }}
             transition={{ duration: 0.6 }}
           >
             <div className="flex h-full flex-col gap-4 rounded-[2rem] card-surface p-8">
@@ -133,7 +133,7 @@ export default function Contact() {
                     rel="noreferrer noopener"
                     initial={{ opacity: 0, x: -12 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     transition={{ duration: 0.4, delay: 0.1 + i * 0.08 }}
                     className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4 transition-all duration-300 hover:border-violet-400/40 hover:bg-violet-500/10"
                   >
@@ -161,7 +161,7 @@ export default function Contact() {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            viewport={{ once: false, margin: "-60px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <form

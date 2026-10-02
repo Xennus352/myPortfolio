@@ -20,6 +20,7 @@ const STACK = [
   "MongoDB",
   "Docker",
   "Git",
+  "Linux (Arch)",
   "Python",
   "Rust",
   "Supabase",

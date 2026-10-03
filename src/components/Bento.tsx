@@ -71,7 +71,7 @@ function Visual({ kind, accent }: { kind: NonNullable<Card["visual"]>; accent: s
   if (kind === "orb") {
     return (
       <div className="relative">
-        <div className={`h-24 w-24 rounded-full bg-gradient-to-br ${accent} blur-2xl`} />
+        <div className={`h-24 w-24 rounded-full bg-gradient-to-br ${accent} blur-xl md:blur-2xl`} />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="h-16 w-16 rounded-full border border-white/20 bg-gradient-to-br from-white/25 to-white/5" />
         </div>

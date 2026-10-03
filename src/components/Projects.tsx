@@ -115,7 +115,7 @@ export default function Projects({ repos, profile }: Props) {
   return (
     <section id="work" className="relative py-24 md:py-36">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-1/4 top-0 h-[460px] w-[700px] -translate-x-1/2 rounded-full bg-violet-700/10 blur-[160px]" />
+        <div className="absolute left-1/4 top-0 h-[460px] w-[700px] -translate-x-1/2 rounded-full bg-violet-700/10 blur-[80px] md:blur-[160px]" />
       </div>
 
       <div className="mx-auto max-w-6xl px-6">
@@ -164,7 +164,7 @@ export default function Projects({ repos, profile }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-60px" }}
           transition={{ duration: 0.6 }}
-          className="group mx-auto mb-12 flex w-fit items-center gap-4 rounded-full border border-white/10 bg-white/[0.04] p-2 pr-6 backdrop-blur-md transition-colors duration-300 hover:border-violet-400/40 hover:bg-violet-500/10"
+          className="group mx-auto mb-12 flex w-fit items-center gap-4 rounded-full border border-white/10 bg-white/[0.04] p-2 pr-6 backdrop-blur-sm md:backdrop-blur-md transition-colors duration-300 hover:border-violet-400/40 hover:bg-violet-500/10"
         >
           {profile && (
             <Image

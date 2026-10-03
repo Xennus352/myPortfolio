@@ -60,10 +60,18 @@ body {
 }
 
 .glass {
-  background: rgba(12, 12, 16, 0.55);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(12, 12, 16, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 768px) {
+  .glass {
+    background: rgba(12, 12, 16, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
 }
 
 .card-surface {
@@ -105,12 +113,20 @@ body {
 .noise::after {
   content: "";
   position: fixed;
-  inset: -50%;
+  inset: 0;
   z-index: 60;
   pointer-events: none;
   opacity: 0.5;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
   animation: grain 8s steps(10) infinite;
+}
+
+/* The animated grain overlay is expensive on phones — keep it static & subtle there */
+@media (max-width: 767px) {
+  .noise::after {
+    animation: none;
+    opacity: 0.3;
+  }
 }
 
 @keyframes grain {
@@ -176,7 +192,10 @@ body {
 /* Reduce motion */
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
-  .noise::after {
+  .noise::after,
+  .animate-float-slow,
+  .pulse-ring,
+  .shimmer {
     animation: none !important;
   }
 }

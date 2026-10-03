@@ -86,8 +86,8 @@ export default function Contact() {
   return (
     <section id="contact" className="relative py-24 md:py-36">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute right-0 top-1/4 h-[420px] w-[420px] rounded-full bg-orange-500/10 blur-[140px]" />
-        <div className="absolute -left-20 bottom-0 h-[480px] w-[480px] rounded-full bg-violet-700/10 blur-[150px]" />
+        <div className="absolute right-0 top-1/4 h-[420px] w-[420px] rounded-full bg-orange-500/10 blur-[70px] md:blur-[140px]" />
+        <div className="absolute -left-20 bottom-0 h-[480px] w-[480px] rounded-full bg-violet-700/10 blur-[75px] md:blur-[150px]" />
       </div>
 
       <div className="mx-auto max-w-6xl px-6">

@@ -17,10 +17,31 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yourdomain.com";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Soe Moe Kyaw — Creative Developer",
   description:
     "Portfolio of Soe Moe Kyaw — a creative developer crafting cinematic, interactive 3D web experiences.",
+  openGraph: {
+    title: "Soe Moe Kyaw — Creative Developer",
+    description:
+      "Portfolio of Soe Moe Kyaw — a creative developer crafting cinematic, interactive 3D web experiences.",
+    url: siteUrl,
+    siteName: "Soe Moe Kyaw",
+    images: [{ url: "/og-image.jpg" }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Soe Moe Kyaw — Creative Developer",
+    description:
+      "Portfolio of Soe Moe Kyaw — a creative developer crafting cinematic, interactive 3D web experiences.",
+  },
+  verification: {
+    google: "0qzzE9lVJQ6epo6LQpnzF8TSt5qSHycXKwy8XpLiHIo",
+  },
 };
 
 export default function RootLayout({

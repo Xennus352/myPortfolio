@@ -46,7 +46,7 @@ export default async function GitHubHeatmap() {
   return (
     <section id="activity" className="relative py-24 md:py-36">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-1/2 top-0 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-violet-700/10 blur-[160px]" />
+        <div className="absolute left-1/2 top-0 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-violet-700/10 blur-[80px] md:blur-[160px]" />
       </div>
 
       <div className="mx-auto max-w-6xl px-6">

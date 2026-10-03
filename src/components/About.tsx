@@ -32,7 +32,7 @@ export default function About() {
   return (
     <section id="about" className="relative py-24 md:py-36">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -right-24 top-1/4 h-[420px] w-[700px] rounded-full bg-orange-600/10 blur-[160px]" />
+        <div className="absolute -right-24 top-1/4 h-[420px] w-[700px] rounded-full bg-orange-600/10 blur-[80px] md:blur-[160px]" />
       </div>
 
       <div className="mx-auto max-w-6xl px-6">

@@ -43,12 +43,12 @@ export default function Hero() {
         <motion.div
           animate={{ scale: [1, 1.15, 1], opacity: [0.8, 1, 0.8] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-40 top-1/4 h-[560px] w-[560px] rounded-full bg-violet-600/20 blur-[160px]"
+          className="absolute -left-40 top-1/4 h-[560px] w-[560px] rounded-full bg-violet-600/20 blur-[80px] md:blur-[160px]"
         />
         <motion.div
           animate={{ scale: [1.1, 1, 1.1], opacity: [0.9, 0.6, 0.9] }}
           transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-32 bottom-1/4 h-[480px] w-[480px] rounded-full bg-orange-500/15 blur-[150px]"
+          className="absolute -right-32 bottom-1/4 h-[480px] w-[480px] rounded-full bg-orange-500/15 blur-[75px] md:blur-[150px]"
         />
         <div className="absolute inset-0 grid-bg opacity-40" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#060608_85%)]" />
@@ -69,7 +69,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="mb-6 flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-md"
+          className="mb-6 flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-sm md:backdrop-blur-md"
         >
           <span className="relative flex h-2 w-2">
             <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-emerald-400" />
@@ -127,7 +127,7 @@ export default function Hero() {
           </a>
           <a
             href="#contact"
-            className="rounded-full border border-white/20 bg-white/5 px-7 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-white backdrop-blur-md transition-all duration-300 hover:scale-[1.04] hover:bg-white/10 active:scale-[0.98]"
+            className="rounded-full border border-white/20 bg-white/5 px-7 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-white backdrop-blur-sm md:backdrop-blur-md transition-all duration-300 hover:scale-[1.04] hover:bg-white/10 active:scale-[0.98]"
           >
             Get in touch
           </a>

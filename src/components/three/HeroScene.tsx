@@ -12,16 +12,16 @@ export default function HeroScene({ progress }: Props) {
   return (
     <Canvas
       camera={{ position: [0, 0, 7.5], fov: 45 }}
-      dpr={[1, 2]}
-      gl={{ antialias: true, alpha: true }}
+      dpr={[1, 1.5]}
+      gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
       className="!absolute inset-0"
     >
       <fog attach="fog" args={["#060608", 9, 20]} />
       <ambientLight intensity={0.4} />
       <pointLight position={[6, 4, 5]} intensity={60} color="#8b5cf6" />
       <pointLight position={[-6, -3, 4]} intensity={40} color="#fb923c" />
-      <Stars radius={60} depth={40} count={2500} factor={3} saturation={0} fade speed={0.6} />
-      <Sparkles count={80} scale={9} size={1.6} speed={0.35} color="#f0abfc" opacity={0.5} />
+      <Stars radius={60} depth={40} count={1200} factor={3} saturation={0} fade speed={0.6} />
+      <Sparkles count={40} scale={9} size={1.6} speed={0.35} color="#f0abfc" opacity={0.5} />
     </Canvas>
   );
 }

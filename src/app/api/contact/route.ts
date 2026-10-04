@@ -12,9 +12,9 @@ type Payload = {
 
 function esc(value: string) {
   return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+    .replace(/&/g, "&")
+    .replace(/</g, "<")
+    .replace(/>/g, ">");
 }
 
 function buildMessage(p: Payload) {
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
 
   if (!token || !chatId) {
     return NextResponse.json(
-      { ok: false, error: "Telegram bot is not configured." },
+      { ok: false, error: "Telegram bot is not configured. Please set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID environment variables." },
       { status: 500 }
     );
   }
@@ -72,13 +72,20 @@ export async function POST(request: Request) {
     parse_mode: "HTML",
   };
 
+  // Create AbortController with 10 second timeout
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000);
+
   try {
     const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
       cache: "no-store",
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
 
     const data = await res.json();
     if (!res.ok || !data.ok) {
@@ -89,7 +96,16 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (error) {
+    clearTimeout(timeoutId);
+    
+    if (error instanceof Error && error.name === "AbortError") {
+      return NextResponse.json(
+        { ok: false, error: "Request timeout while contacting Telegram. Please try again." },
+        { status: 504 }
+      );
+    }
+    
     return NextResponse.json(
       { ok: false, error: "Network error while contacting Telegram." },
       { status: 502 }

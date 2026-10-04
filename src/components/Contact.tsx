@@ -264,7 +264,9 @@ export default function Contact() {
                 <svg
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="relative z-10 h-4 w-4"
+                  className={`relative z-10 h-4 w-4 transition-transform duration-700 ${
+                    status === "sending" ? "animate-spin" : "group-hover:rotate-90"
+                  }`}
                 >
                   <path d="M21.94 2.4 19 20.6c-.17 1.02-.84 1.27-1.7.79l-4.7-3.47-2.27 2.18c-.25.25-.46.46-.94.46l.34-4.78L18.1 5.6c.38-.34-.08-.53-.59-.19L6.2 12.67l-4.63-1.45c-1-.31-1.03-1.01.22-1.49L20.45 1c.83-.31 1.56.19 1.49 1.4Z" />
                 </svg>

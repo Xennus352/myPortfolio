@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # Allow TELEGRAM_BOT_TOKEN in build output (required for API route runtime)
+  SECRETS_SCAN_OMIT_KEYS = "TELEGRAM_BOT_TOKEN"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
